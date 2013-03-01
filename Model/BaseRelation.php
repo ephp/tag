@@ -4,7 +4,7 @@ namespace Ephp\TagBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-abstract class RelationBase {
+abstract class BaseRelation {
 
     /**
      * @var integer $id
