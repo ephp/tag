@@ -1,0 +1,17 @@
+{% if js is not defined %}
+    {% set js = 'n_filtro' %}
+{% endif %}
+{% if tag %}
+    {% if class is not defined %}
+        {% if tag.favicon %}
+            {% set class = tag.favicon ~ ' tags margin-bottom-5' %}
+        {% else %}
+            {% set class = 'tag_default tags margin-bottom-5' %}
+        {% endif %}
+    {% endif %}
+    {% if tag.tag|length > 45 %}
+        <a href="{% if nojs is defined and nojs %}javascript:void(0){% else %}javascript:{{ js }}('{{ tag.slug }}'){% endif %}" rel="{{ tag.slug }}" class="relative rel rounded-3 _{{tag.slug}} {{class}} left no-margin margin-right-5" title="{{ tag.tag|capitalize }}{% if tag.descrizione %}: {{ tag.descrizione }}{% endif %}">{{ tag.tag|capitalize|truncate(45) }}</a>
+    {% else %}
+        <a href="{% if nojs is defined and nojs %}javascript:void(0){% else %}javascript:{{ js }}('{{ tag.slug }}'){% endif %}" rel="{{ tag.slug }}" class="relative rel rounded-3 _{{tag.slug}} {{class}} left no-margin margin-right-5"{% if tag.descrizione %} title="{{ tag.descrizione }}"{% endif %}>{{ tag.tag|capitalize }}</a>
+    {% endif %}
+{% endif %}
