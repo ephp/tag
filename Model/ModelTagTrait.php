@@ -4,12 +4,13 @@ namespace Ephp\TagBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 
-abstract class BaseModel {
-
+trait ModelTagTrait { 
+    
+        
     /**
      * @var ArrayCollection $tags
      *
-     * @ORM\OneToMany(targetEntity="TagRelation", mappedBy="post", cascade={"persist", "remove", "merge", "refresh"})
+     * @ORM\OneToMany(targetEntity="Tag", mappedBy="post", cascade={"persist", "remove", "merge", "refresh"})
      */
     protected $tags;
 

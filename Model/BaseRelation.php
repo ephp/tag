@@ -13,7 +13,7 @@ abstract class BaseRelation {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Ephp\TagBundle\Entity\Tag $tag
