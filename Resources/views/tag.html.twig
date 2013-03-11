@@ -1,5 +1,5 @@
 {% if js is not defined %}
-    {% set js = 'n_filtro' %}
+    {% set js = 'void' %}
 {% endif %}
 {% if tag %}
     {% if class is not defined %}
@@ -10,7 +10,7 @@
         {% endif %}
     {% endif %}
     {% if tag.tag|length > 45 %}
-        <a href="{% if nojs is defined and nojs %}javascript:void(0){% else %}javascript:{{ js }}('{{ tag.slug }}'){% endif %}" rel="{{ tag.slug }}" class="relative rel rounded-3 _{{tag.slug}} {{class}} left no-margin margin-right-5" title="{{ tag.tag|capitalize }}{% if tag.descrizione %}: {{ tag.descrizione }}{% endif %}">{{ tag.tag|capitalize|truncate(45) }}</a>
+        <a href="{% if nojs is defined and nojs %}javascript:void(0){% else %}javascript:{{ js }}('{{ tag.slug }}'){% endif %}" rel="{{ tag.slug }}" class="relative rel rounded-3 _{{tag.slug}} {{class}} left no-margin margin-right-5" title="{{ tag.tag|capitalize }}{% if tag.descrizione %}: {{ tag.descrizione }}{% endif %}">{{ tag.tag|capitalize }}</a>
     {% else %}
         <a href="{% if nojs is defined and nojs %}javascript:void(0){% else %}javascript:{{ js }}('{{ tag.slug }}'){% endif %}" rel="{{ tag.slug }}" class="relative rel rounded-3 _{{tag.slug}} {{class}} left no-margin margin-right-5"{% if tag.descrizione %} title="{{ tag.descrizione }}"{% endif %}>{{ tag.tag|capitalize }}</a>
     {% endif %}
