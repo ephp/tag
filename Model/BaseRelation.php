@@ -21,14 +21,14 @@ abstract class BaseRelation {
      * @ORM\ManyToOne(targetEntity="Ephp\TagBundle\Entity\Tag")
      * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      */
-    private $tag;
+    protected $tag;
 
     /**
      * @var string $campo
      *
      * @ORM\Column(name="campo", type="string", length=32, nullable=true)
      */
-    private $campo;
+    protected $campo;
 
     /**
      * Get id
