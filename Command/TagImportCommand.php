@@ -56,8 +56,8 @@ EOT
         $dialog = $this->getDialogHelper();
         $dialog->writeSection($output, 'Import Tag', 'bg=white;fg=black');
 
-        $gruppoClass = $this->getContainer()->get('doctrine')->getEntityNamespace('B2STagBundle') . '\\Gruppo';
-        $entityClass = $this->getContainer()->get('doctrine')->getEntityNamespace('B2STagBundle') . '\\Tag';
+        $gruppoClass = $this->getContainer()->get('doctrine')->getEntityNamespace('EphpTagBundle') . '\\Gruppo';
+        $entityClass = $this->getContainer()->get('doctrine')->getEntityNamespace('EphpTagBundle') . '\\Tag';
         $conn = $this->getDoctrineConnection('default');
         $em = $this->getEntityManager('default');
 
@@ -66,13 +66,13 @@ EOT
 
         $exclude = array('.', '..', 'index.html.twig', 'portlets.xml');
 
-        $bundle = $this->getContainer()->get('kernel')->getBundle('B2STagBundle');
+        $bundle = $this->getContainer()->get('kernel')->getBundle('EphpTagBundle');
         $bundle_namespace = get_class($bundle);
         echo "\n\n" . $bundle_namespace;
 
         $path = $bundle->getPath();
         $sep = $path{0} == '/' ? '/' : '\\';
-        $path = $path . "{$sep}Resources{$sep}data";
+        $path = $path . "{$sep}..{$sep}..{$sep}..{$sep}..{$sep}..{$sep}app{$sep}Resources{$sep}tags";
         echo "\n";
         if ($handle_action = opendir($path)) {
             while (false !== ($file = readdir($handle_action))) {
@@ -94,7 +94,7 @@ EOT
                             $tags[] = $tag;
                         }
                         $_gruppo->removeAllTag($sigla);
-                        while (($data = fgetcsv($handle, 1000, "\t")) !== false) {
+                        while (($data = fgetcsv($handle, 1000, ",")) !== false) {
                             $tag = $_tag->findOneBy(array('tag' => $data[0]));
                             if(!$tag) {
                                 $data[0] = trim($data[0]);
