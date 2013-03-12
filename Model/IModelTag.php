@@ -10,5 +10,7 @@ interface IModelTag {
     public function addTag(\Ephp\TagBundle\Entity\Tag $_tag, $campo);
     public function getTag($key, $array = false);
     public function getAllTag();
+    public function getRelationModel();
+    public function getSetterModel();
     
 }

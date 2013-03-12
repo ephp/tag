@@ -7,12 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait ModelTagTrait { 
     
         
-    /**
-     * @var ArrayCollection $tags
-     *
-     * @ORM\OneToMany(targetEntity="Tag", mappedBy="post", cascade={"persist", "remove", "merge", "refresh"})
-     */
-    protected $tags;
+    
 
     /**
      * get tags
@@ -39,7 +34,9 @@ trait ModelTagTrait {
      * @param Tag $tag 
      */
     public function addTags($tag) {
+       // \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
         $this->tags->add($tag);
+       // \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
         return $this;
     }
     
@@ -49,11 +46,13 @@ trait ModelTagTrait {
      * @param Tag $tag 
      */
     public function addTag(\Ephp\TagBundle\Entity\Tag $_tag, $campo) {
-        $tag = new Tag();
+        $class = $this->getRelationModel();
+        $setter = $this->getSetterModel();
+        $tag = new $class();
         $tag->setTag($_tag);
         $tag->setCampo($campo);
-        $tag->setPost($this);
-        $this->tags->add($tag);
+        $tag->$setter($this);
+        $this->addTags($tag);
     }
 
     public function getTag($key, $array = false) {
