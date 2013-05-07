@@ -25,7 +25,7 @@ class Tag {
     /**
      * @var string $tag
      *
-     * @ORM\Column(name="tag", type="string", length=64)
+     * @ORM\Column(name="tag", type="string", length=255)
      */
     private $tag;
 
@@ -59,7 +59,7 @@ class Tag {
 
     /**
      * @Gedmo\Slug(fields={"tag"}, unique=true)
-     * @ORM\Column(name="slug", type="string", length=64, unique=true)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;
 
