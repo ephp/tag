@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 trait ModelTagTrait { 
     
     public function addCreateTag($tag_name, $campo, \Doctrine\ORM\EntityManager $em) {
-        $this->tags->clear();
         $_tag = $em->getRepository('EphpTagBundle:Tag');
         $tag = $_tag->findOneBy(array('tag' => $tag_name, 'favicon' => $campo));
         if(!$tag) {
@@ -46,9 +45,9 @@ trait ModelTagTrait {
      * @param Tag $tag 
      */
     public function addTags($tag) {
-       // \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
+//       \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
         $this->tags->add($tag);
-       // \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
+//       \Ephp\UtilityBundle\Utility\Debug::pr(count($this->tags), true);
         return $this;
     }
     
