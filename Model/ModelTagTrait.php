@@ -6,13 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait ModelTagTrait { 
     
-    public function addCreateTag($tag_name, $campo, \Doctrine\ORM\EntityManager $em) {
+    public function addCreateTag($tag_name, $campo, \Doctrine\ORM\EntityManager $em, $descrizione = '') {
         $_tag = $em->getRepository('EphpTagBundle:Tag');
         $tag = $_tag->findOneBy(array('tag' => $tag_name, 'favicon' => $campo));
         if(!$tag) {
             $tag = new \Ephp\TagBundle\Entity\Tag();
             $tag->setTag($tag_name);
             $tag->setFavicon($campo);
+            $tag->setDescrizione($descrizione);
             $tag->setPubblico(true);
             $em->persist($tag);
             $em->flush();
