@@ -48,14 +48,7 @@ trait TagController {
                 }
             }
         }
-        return new \Symfony\Component\HttpFoundation\Response(json_encode($out));
-    }
-
-    /**
-     * @return \Doctrine\ORM\EntityManager 
-     */
-    protected function getEm() {
-        return $this->getDoctrine()->getEntityManager();
+        return $out;
     }
 
 }
