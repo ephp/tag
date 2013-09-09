@@ -1,36 +1,25 @@
 <?php
 
-namespace Ephp\TagBundle\Controller;
+namespace Ephp\TagBundle\Controller\Traits;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+trait TagController {
 
-/**
- * @Route("/tag")
- */
-class DefaultController extends Controller {
-
-    use Traits\TagController;
-    
     /**
-     * q = termine cercato
-     * o = cerca nel/nei guppo/i (es: azienda|professionista)
-     * e = non cerca nel/nei guppo/i (es: azienda|professionista)
-     * d = cerca anche nella secrizione di tag
-     * n = permette la creazione di nuovi tag
-     * c = associa css ai tag creati
-     * 
-     * @Route("/cerca", name="tag_cerca", defaults={"_format"="json"})
+     * @param type $q termine cercato
+     * @param type $o cerca nel/nei guppo/i (es: azienda|professionista)
+     * @param type $e non cerca nel/nei guppo/i (es: azienda|professionista)
+     * @param type $d cerca anche nella secrizione di tag
+     * @param type $n permette la creazione di nuovi tag
+     * @param type $c associa css ai tag creati
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function cercaAction() {
+    public function cercaTag($q, $o, $e, $d, $n, $c) {
         $request = $this->getRequest();
         $out = array();
-        $q = $request->get('q', '');
         if (strlen($q) >= 2) {
             $em = $this->getEm();
             $_tag = $em->getRepository('Ephp\TagBundle\Entity\Tag');
-            $tags = $_tag->cercaTag($q, $request->get('o'), $request->get('e'), $request->get('d'));
+            $tags = $_tag->cerca($q, $o, $e, $d);
             if (count($tags) > 0) {
                 foreach ($tags as $tag) {
                     $out[] = array(
@@ -41,7 +30,7 @@ class DefaultController extends Controller {
                     );
                 }
             }
-            if($request->get('n')) {
+            if($n) {
                 $insert = true;
                 foreach ($out as $t) {
                     if(strtolower($t['name']) == strtolower($q)) {
@@ -53,7 +42,7 @@ class DefaultController extends Controller {
                     $out[] = array(
                         'id' => $q,
                         'name' => $q,
-                        'css' => $request->get('c') ? urldecode($request->get('c')) : 'tag_default',
+                        'css' => $c ? urldecode($c) : 'tag_default',
                         'descrizione' => 'Stai inserendo una nuova etichetta',
                     );
                 }
@@ -61,7 +50,7 @@ class DefaultController extends Controller {
         }
         return new \Symfony\Component\HttpFoundation\Response(json_encode($out));
     }
-    
+
     /**
      * @return \Doctrine\ORM\EntityManager 
      */
