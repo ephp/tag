@@ -13,10 +13,10 @@ trait TagController {
      * @param type $c associa css ai tag creati
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function cercaTag($q, $o, $e, $d, $n, $c) {
+    public function cercaTag($q, $o = null, $e = null, $d = null, $n = null, $c = null, $l = 2) {
         $request = $this->getRequest();
         $out = array();
-        if (strlen($q) >= 2) {
+        if (strlen($q) >= $l) {
             $em = $this->getEm();
             $_tag = $em->getRepository('Ephp\TagBundle\Entity\Tag');
             $tags = $_tag->cerca($q, $o, $e, $d);
